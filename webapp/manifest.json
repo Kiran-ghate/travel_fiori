@@ -1,0 +1,179 @@
+{
+  "_version": "1.86.0",
+  "sap.app": {
+    "id": "travel",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.33.0",
+      "toolsId": "e67ed26b-77b9-4261-8d45-5f292259d639"
+    },
+    "dataSources": {
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zfe_ui_travel_m_o4/srvd/sap/zfe_ui_travel_m/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.10",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "travel.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ZFE_C_TRAVEL_PROCESSOR_MList",
+          "target": "ZFE_C_TRAVEL_PROCESSOR_MList"
+        },
+        {
+          "pattern": "ZFE_C_TRAVEL_PROCESSOR_M({key}):?query:",
+          "name": "ZFE_C_TRAVEL_PROCESSOR_MObjectPage",
+          "target": "ZFE_C_TRAVEL_PROCESSOR_MObjectPage"
+        },
+        {
+          "pattern": "ZFE_C_TRAVEL_PROCESSOR_M({key})/_Booking({key2}):?query:",
+          "name": "Zfe_C_Booking_Processor_MObjectPage",
+          "target": "Zfe_C_Booking_Processor_MObjectPage"
+        }
+      ],
+      "targets": {
+        "ZFE_C_TRAVEL_PROCESSOR_MList": {
+          "type": "Component",
+          "id": "ZFE_C_TRAVEL_PROCESSOR_MList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ZFE_C_TRAVEL_PROCESSOR_M",
+              "variantManagement": "Page",
+              "navigation": {
+                "ZFE_C_TRAVEL_PROCESSOR_M": {
+                  "detail": {
+                    "route": "ZFE_C_TRAVEL_PROCESSOR_MObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ZFE_C_TRAVEL_PROCESSOR_MObjectPage": {
+          "type": "Component",
+          "id": "ZFE_C_TRAVEL_PROCESSOR_MObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ZFE_C_TRAVEL_PROCESSOR_M",
+              "navigation": {
+                "_Booking": {
+                  "detail": {
+                    "route": "Zfe_C_Booking_Processor_MObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Zfe_C_Booking_Processor_MObjectPage": {
+          "type": "Component",
+          "id": "Zfe_C_Booking_Processor_MObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ZFE_C_TRAVEL_PROCESSOR_M/_Booking"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
